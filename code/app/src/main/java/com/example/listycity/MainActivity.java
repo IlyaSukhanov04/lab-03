@@ -14,11 +14,19 @@ public class MainActivity extends AppCompatActivity implements
     private ArrayList<City> dataList;
     private ListView cityList;
     private CityArrayAdapter cityAdapter;
+    private City selectedCity = null;
+
     @Override
     public void addCity(City city) {
         cityAdapter.add(city);
         cityAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void updateCity() {
+        cityAdapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +40,19 @@ public class MainActivity extends AppCompatActivity implements
         cityList = findViewById(R.id.city_list);
         cityAdapter = new CityArrayAdapter(this, dataList);
         cityList.setAdapter(cityAdapter);
+
+        cityList.setOnItemClickListener((parent, view, position, id) -> {
+            selectedCity = dataList.get(position);
+        });
+
         FloatingActionButton fab = findViewById(R.id.button_add_city);
         fab.setOnClickListener(v -> {
-            new AddCityFragment().show(getSupportFragmentManager(), "Add City");
+            if (selectedCity != null) {
+                AddCityFragment.newInstance(selectedCity).show(getSupportFragmentManager(), "Edit City");
+                selectedCity = null; // Reset after editing
+            } else {
+                new AddCityFragment().show(getSupportFragmentManager(), "Add City");
+            }
         });
     }
 }
