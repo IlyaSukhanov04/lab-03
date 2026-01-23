@@ -9,8 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import org.jetbrains.annotations.Nullable;
 
 public class AddCityFragment extends DialogFragment {
     interface AddCityDialogListener {

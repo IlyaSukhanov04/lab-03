@@ -2,12 +2,12 @@ package com.example.listycity;
 
 import android.os.Bundle;
 import android.widget.ListView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements
         AddCityFragment.AddCityDialogListener {
@@ -29,14 +29,18 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         String[] cities = { "Edmonton", "Vancouver", "Toronto" };
         String[] provinces = { "AB", "BC", "ON" };
+
         dataList = new ArrayList<>();
         for (int i = 0; i < cities.length; i++) {
             dataList.add(new City(cities[i], provinces[i]));
         }
+
         cityList = findViewById(R.id.city_list);
         cityAdapter = new CityArrayAdapter(this, dataList);
         cityList.setAdapter(cityAdapter);
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
             } else {
                 new AddCityFragment().show(getSupportFragmentManager(), "Add City");
             }
+
         });
     }
 }
